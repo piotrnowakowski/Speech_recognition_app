@@ -1,0 +1,100 @@
+<html>
+<head>
+  <title>Rasa Website</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 0.5em;
+    }
+    p {
+      font-size: 1.2em;
+      margin-bottom: 1em;
+    }
+    #chat-popup {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1em;
+      background-color: #eee;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    #user-input {
+      width: 100%;
+      height: 5em;
+      margin-bottom: 0.5em;
+      padding: 0.5em;
+      box-sizing: border-box;
+      font-size: 1.2em;
+      border: none;
+      outline: none;
+      resize: none;
+    }
+    #chat-log {
+      max-height: 15em;
+      overflow-y: auto;
+      margin-bottom: 0.5em;
+    }
+    #chat-log p {
+      margin: 0;
+      padding: 0.5em;
+    }
+    #chat-log p.user {
+      text-align: left;
+      color: blue;
+    }
+    #chat-log p.bot {
+      text-align: right;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rasa Website</h1>
+  <p>Welcome to our Rasa-powered website!</p>
+  <button onclick="openChatPopup()">Open Chat Popup</button>
+  <div id="chat-popup">
+    <textarea id="user-input"></textarea>
+    <button onclick="sendMessage()">Send</button>
+    <div id="chat-log"></div>
+  </div>
+  <script>
+    function openChatPopup() {
+      document.getElementById("chat-popup").style.display = "block";
+    }
+
+    function sendMessage() {
+      // Get user input
+      const userInput = document.getElementById("user-input").value;
+
+      // Clear user input field
+      document.getElementById("user-input").value = "";
+
+      // Display user input in chat log
+      const chatLog = document.getElementById("chat-log");
+      chatLog.innerHTML += `<p class="user">User: ${userInput}</p>`;
+
+      // Send user input to Rasa server and get response
+      fetch("http://localhost:5005/webhooks/rest/webhook", {
+        method: "POST",
+        body: JSON.stringify({
+          sender: "user",
+          message: userInput
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Display response
+          // Display response in chat log
+          const chatLog = document.getElementById("chat-log");
+          chatLog.innerHTML += `<p>Bot: ${data[0].text}</p>`;
+        });
+        
+    }
+  </script>
+</body>
+</html>

@@ -96,3 +96,45 @@ nlu:
     - please press space
     - space
     - bot press space
+
+- intent: youtube_search
+  examples: |
+    - search youtube [youtube_keywords]
+    - search for videos on youtube [youtube_keywords]
+    - i want to search for videos on youtube [youtube_keywords]
+    - show me videos on youtube [youtube_keywords]
+    - Find videos on youtube [youtube_keywords]
+
+- intent: escape
+  examples: |
+    - press escape
+    - please press escape
+    - escape
+    - bot press escape
+
+- intent: arrow_down
+  examples: |
+   - press arrow down
+   - please press arrow down
+   - arrow down
+   - bot press arrow down
+- intent: scroll_down
+  examples: |
+   - scroll down
+   - please scroll down
+   - down
+   - bot scroll down
+
+- intent: scroll_up
+  examples: |
+   - scroll up
+   - please scroll up
+   - up
+   - bot scroll up
+
+- intent: enter
+  examples: |
+   - press enter
+   -  please press enter
+   - enter
+   - bot press enter

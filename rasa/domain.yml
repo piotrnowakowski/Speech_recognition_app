@@ -9,8 +9,19 @@ intents:
   - mood_unhappy
   - bot_challenge
   - space
+  - escape
+  - enter
+  - arrow_down
+  - scroll_down
+  - scroll_up
 
 
+slots:
+  youtube_keyword:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: custom
 
 responses:
   utter_greet:
@@ -32,9 +43,14 @@ responses:
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
 
-actions:
+actions: 
+  - action_enter
   - action_space
-  
+  - action_escape
+  - action_arrow_down
+  - action_scroll_down
+  - action_scroll_up
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

@@ -4,7 +4,6 @@ import time
 # This module is imported so that we can 
 # play the converted audio
 os.add_dll_directory(os.getcwd())
-import vlc
 import playsound
 
 def read_to_user(text):
