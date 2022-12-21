@@ -73,9 +73,12 @@ class OpenYouTube(Action):
     def run(self, dispatcher, tracker, domain):
         user_input = tracker.latest_message.get("text")
         # cutting only the research query
-        if 'youtube' in user_input:
+        if 'youtube' in user_input :
             user_input = user_input.split('youtube')[1]
+        if  'YouTube' in user_input:
+            user_input = user_input.split('YouTube')[1]
 
+        
         # Open YouTube in a new tab
         webbrowser.open_new_tab("https://www.youtube.com/results?search_query={}".format(user_input))
 

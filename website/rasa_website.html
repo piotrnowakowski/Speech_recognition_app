@@ -5,14 +5,19 @@
     body {
       font-family: sans-serif;
       text-align: center;
+      background-color: #f1f1f1;
     }
     h1 {
       font-size: 2em;
-      margin-bottom: 0.5em;
+      margin: 1em 0 0.5em;
+      text-align: center;
+      color: #333;
     }
     p {
       font-size: 1.2em;
-      margin-bottom: 1em;
+      margin: 0 0 1em;
+      text-align: center;
+      color: #555;
     }
     #chat-popup {
       position: fixed;
@@ -20,36 +25,59 @@
       left: 0;
       right: 0;
       padding: 1em;
-      background-color: #eee;
+      background-color: #fff;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      display: none;
+      flex-direction: column;
     }
     #user-input {
       width: 100%;
       height: 5em;
-      margin-bottom: 0.5em;
+      margin: 0.5em 0 0;
       padding: 0.5em;
       box-sizing: border-box;
       font-size: 1.2em;
       border: none;
       outline: none;
       resize: none;
+      border-radius: 5px;
+      border: 1px solid #ccc;
     }
     #chat-log {
       max-height: 15em;
       overflow-y: auto;
-      margin-bottom: 0.5em;
+      margin: 0.5em 0 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
     #chat-log p {
       margin: 0;
       padding: 0.5em;
+      border-radius: 5px;
+      font-size: 1.2em;
     }
     #chat-log p.user {
       text-align: left;
       color: blue;
+      background-color: #ddd;
+      margin-right: auto;
     }
     #chat-log p.bot {
       text-align: right;
       color: green;
+      background-color: #eee;
+      margin-left: auto;
+    }
+    button {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 0.5em 1em;
+      font-size: 1.2em;
+      border-radius: 5px;
+      background-color: #0084ff;
+      color: #fff;
     }
   </style>
 </head>

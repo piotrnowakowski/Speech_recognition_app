@@ -58,3 +58,8 @@ stories:
   steps:
   - intent: scroll_up
   - action: action_scroll_up
+
+- story: openYT
+  steps:
+  - intent: youtube_search
+  - action: action_open_YT

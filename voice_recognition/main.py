@@ -8,15 +8,10 @@ import os
 os.add_dll_directory(os.getcwd())
 
 if __name__ == "__main__":
-    # set the list of words, maxnumber of guesses, and prompt limit
-
-
     # create recognizer and mic instances
     recognizer = sr.Recognizer()
     microphone = sr.Microphone()
     print(microphone)
-
-    # get a random word from the list
 
     # format the instructions string
     instructions = ("You can give me an instruction on what to do on your computer")

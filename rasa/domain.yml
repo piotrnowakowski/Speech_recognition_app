@@ -14,6 +14,7 @@ intents:
   - arrow_down
   - scroll_down
   - scroll_up
+  - youtube_search
 
 
 slots:
@@ -50,6 +51,7 @@ actions:
   - action_arrow_down
   - action_scroll_down
   - action_scroll_up
+  - action_open_YT
 
 session_config:
   session_expiration_time: 60
