@@ -63,3 +63,13 @@ stories:
   steps:
   - intent: youtube_search
   - action: action_open_YT
+
+- story: get tommorow weather
+  steps:
+  - intent: tommorow_weather
+  - action: action_get_tommorow_weather
+
+- story: get current 
+  steps:
+  - intent: current_weather
+  - action: action_get_current_weather

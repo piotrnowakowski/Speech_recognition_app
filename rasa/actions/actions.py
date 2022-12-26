@@ -119,7 +119,7 @@ class GetWeatherAction(Action):
         self.weather_client = OpenWeatherMapClient(api_key='2988f66310cb9fb07835c49b29d9b685')
 
     def name(self):
-        return "action_get_weather"
+        return "action_get_current_weather"
 
     def run(self, dispatcher, tracker, domain):
         # Get the location from the user's message
