@@ -135,6 +135,25 @@ nlu:
 - intent: enter
   examples: |
    - press enter
-   -  please press enter
+   - please press enter
    - enter
    - bot press enter
+
+- intent: current_weather
+  examples: |
+   - what is the weather 
+   - what is weather here
+   - what is weather outside
+   - what is the weather like 
+   - how is weather outside
+   - how is weather
+   - what is weather
+
+- intent: tommorow_weather
+  examples: |
+   - what will be weather
+   - what will be weather tommorow
+   - what will be tommorow weather
+   - how the weather will be tommorow
+   - how will be the weather
+   
