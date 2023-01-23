@@ -18,7 +18,6 @@ import time
 from pyowm import OWM
 import requests
 
-#
 class ActionHelloWorld(Action):
 
     def name(self):
@@ -150,8 +149,9 @@ class GetWeatherAction(Action):
 class GetWeatherAction(Action):
     def __init__(self):
         # Set up the OpenWeatherMap API client
-        self.weather_client = pyowm.OWM('2988f66310cb9fb07835c49b29d9b685')
-
+        #self.weather_client = pyowm.OWM('2988f66310cb9fb07835c49b29d9b685')
+        pass
+    
     def name(self):
         return "action_get_tommorow_weather"
 
