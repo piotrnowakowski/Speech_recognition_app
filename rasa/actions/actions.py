@@ -1,14 +1,3 @@
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/custom-actions
-
-
-# This is a simple example for a custom action which utters "Hello World!"
-
-# from typing import Any, Text, Dict, List
-#
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 import keyboard
@@ -17,6 +6,7 @@ import webbrowser
 import time
 from pyowm import OWM
 import requests
+from voice_recognition.mic_functions.text_to_sound import read_to_user
 
 class ActionHelloWorld(Action):
 
@@ -86,7 +76,7 @@ class OpenYouTube(Action):
         # Send a message to the user
         dispatcher.utter_message(text="Searching for '{}' on YouTube".format(user_input))
 
-
+##################################################################################
 class OpenWeatherMapClient:
     def __init__(self, api_key):
         self.owm_client = OWM(api_key)
@@ -144,9 +134,10 @@ class GetWeatherAction(Action):
             message += " The sky is clear."
 
         dispatcher.utter_message(text=message)
+        read_to_user(message)
 
 
-class GetWeatherAction(Action):
+class GetTommorowWeatherAction(Action):
     def __init__(self):
         # Set up the OpenWeatherMap API client
         #self.weather_client = pyowm.OWM('2988f66310cb9fb07835c49b29d9b685')
@@ -180,5 +171,6 @@ class GetWeatherAction(Action):
         message += f" The forecast for tomorrow is {forecast_tomorrow.get_temperature('celsius')['max']}°C and {forecast_tomorrow.get_detailed_status()}."
 
         dispatcher.utter_message(text=message)
+        read_to_user(message)
 
 
