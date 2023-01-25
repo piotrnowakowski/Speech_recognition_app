@@ -9,14 +9,10 @@ import requests
 from voice_recognition.mic_functions.text_to_sound import read_to_user
 
 class ActionHelloWorld(Action):
-
     def name(self):
          return "action_hello_world"
-
     def run(self, dispatcher, tracker, domain):
-
         dispatcher.utter_message(text="Hello World!")
-
         return []
 
 class Enter(Action):
@@ -55,7 +51,6 @@ class ScrollDown(Action):
         return "action_scroll_down"
     def run(self, dispatcher, tracker, domain):
         pyautogui.scroll(-100)
-
         # Send a message to the user
         dispatcher.utter_message(text="arrow down pressed and page scrolled down")
 

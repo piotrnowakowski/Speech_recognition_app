@@ -17,8 +17,4 @@ def send_text_to_rasa(text):
     if req.status_code == requests.codes.ok:
         print("it's okey")
     else:
-        print("somethin is wrong")
-
-
-def get_text_from_rasa():
-    pass
+        print("something is wrong")

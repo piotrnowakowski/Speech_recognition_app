@@ -13,26 +13,23 @@ if __name__ == "__main__":
     microphone = sr.Microphone()
     print(microphone)
 
-    # format the instructions string
     instructions = ("You can give me an instruction on what to do on your computer")
 
-    # show instructions and wait 3 seconds before starting the game
-    print(instructions)
+    # pokazujemy instrukcje i czekamy 2 sekundy przed rozpoczęciem nasłuchiwania
     read_to_user(instructions)
-    time.sleep(3)
+    time.sleep(2)
 
     for i in range(4):
-        print('Guess {}. Speak!'.format(i+1))
         guess = recognize_speech_from_mic(recognizer, microphone)
         if guess["transcription"]:
-            #TODO rasa connection
+            # przesłanie tekstu do systemu Rasa w celu przetworzenia
             send_text_to_rasa(guess["transcription"])
         if not guess["success"]:
-            read_to_user("I didn't catch that. What did you say?\n")
+            read_to_user("I didn't understand that. Repeat please\n")
 
         # if there was an error, stop the game
         if guess["error"]:
-            read_to_user("ERROR {}".format(guess["error"]))
+            read_to_user("there was an ERROR {}".format(guess["error"]))
             break
 
         # check the transcription
