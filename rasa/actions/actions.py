@@ -6,7 +6,7 @@ import webbrowser
 import time
 from pyowm import OWM
 import requests
-from voice_recognition.mic_functions.text_to_sound import read_to_user
+from .mic_functions.text_to_sound import read_to_user
 
 class ActionHelloWorld(Action):
     def name(self):
@@ -21,6 +21,7 @@ class Enter(Action):
     def run(self, dispatcher, tracker, domain):
         keyboard.send("enter")
         dispatcher.utter_message(text="enter pressed")
+        read_to_user("enter pressed")
 
 
 class Escape(Action):
@@ -29,6 +30,8 @@ class Escape(Action):
     def run(self, dispatcher, tracker, domain):
         keyboard.send("escape")
         dispatcher.utter_message(text="enter escape")
+        read_to_user("enter escape")
+
 
 class Space(Action):
     def name(self):
@@ -37,6 +40,8 @@ class Space(Action):
         keyboard.send("space")
         print("space pressed")
         dispatcher.utter_message(text="space pressed")
+        read_to_user("space pressed")
+
 
 class ArrowDown(Action):
     def name(self):
@@ -45,6 +50,8 @@ class ArrowDown(Action):
         keyboard.send("arrow_down")
         print("arrow down pressed")
         dispatcher.utter_message(text="arrow down pressed")
+        read_to_user("arrow down pressed")
+
         
 class ScrollDown(Action):
     def name(self):
@@ -53,6 +60,8 @@ class ScrollDown(Action):
         pyautogui.scroll(-100)
         # Send a message to the user
         dispatcher.utter_message(text="arrow down pressed and page scrolled down")
+        read_to_user("scroll down pressed")
+
 
 class OpenYouTube(Action):
     def name(self):
@@ -70,6 +79,8 @@ class OpenYouTube(Action):
 
         # Send a message to the user
         dispatcher.utter_message(text="Searching for '{}' on YouTube".format(user_input))
+        read_to_user("Searching for '{}' on YouTube".format(user_input))
+
 
 ##################################################################################
 class OpenWeatherMapClient:

@@ -8,3 +8,9 @@ voice_recognition\__pycache__
 neural_network/training.py
 neural_network/data_prep/preprocess.py
 neural_network/data_prep/save_audio.py
+rasa/.rasa
+/rasa/actions/__pycache__
+rasa/actions/mic_functions/
+rasa/models
+rasa/.rasa/cache/cache.db
+rasa/actions/__pycache__/
