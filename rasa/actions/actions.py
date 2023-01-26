@@ -146,7 +146,7 @@ class GetWeatherAction(Action):
 class GetTommorowWeatherAction(Action):
     def __init__(self):
         # Set up the OpenWeatherMap API client
-        #self.weather_client = pyowm.OWM('2988f66310cb9fb07835c49b29d9b685')
+        self.weather_client = pyowm.OWM('2988f66310cb9fb07835c49b29d9b685')
         pass
     
     def name(self):
