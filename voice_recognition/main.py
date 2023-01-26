@@ -17,7 +17,6 @@ if __name__ == "__main__":
 
     # pokazujemy instrukcje i czekamy 2 sekundy przed rozpoczęciem nasłuchiwania
     read_to_user(instructions)
-    time.sleep(2)
 
     for i in range(4):
         guess = recognize_speech_from_mic(recognizer, microphone)

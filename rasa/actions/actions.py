@@ -4,6 +4,8 @@ import keyboard
 import pyautogui
 import webbrowser
 import time
+import pyowm
+import socket
 from pyowm import OWM
 import requests
 from .mic_functions.text_to_sound import read_to_user
@@ -89,29 +91,28 @@ class OpenWeatherMapClient:
 
     def get_current_weather(self, location):
         # Send a request to the OpenWeatherMap API to get the current weather for the given location
-        weather = self.owm_client.weather_at_place(location).get_weather()
+        mgr = self.owm_client.weather_manager()
+        # list_of_locations = mgr.locations_for('Tokyo', country='JP', matching='exact')
+        # tokyo = list_of_locations[0]
+        weather = mgr.weather_at_place(str(location['country'])).get_weather()
         # Return the weather data
+        print(weather.weather.detailed_status)
         return weather
-    
+
     def get_user_location(self):
         # Set up the API URL and request headers
-        api_url = "https://api.ipgeolocation.io/ipgeo"
-        headers = {"API-Key": '2ae49291af8d453a917666db8d5ab3be'}
-
-        # Send a request to the API to get the location of the user's device
-        response = requests.get(api_url, headers=headers)
-
-        # Parse the response data
-        data = response.json()
-
-        # Print the city and county
-        return { 'city': data['city'], 'country': data['county']}
+        # Get complete geolocation for the calling machine's IP address
+        url = "http://ipwho.is/"
+        geolocation = requests.get(url=url)
+        geolocation = geolocation.json()
+        return {'country': geolocation['country'], 'city': geolocation['city']}
+        # return geolocation
 
 
 class GetWeatherAction(Action):
     def __init__(self):
         # Set up the OpenWeatherMap API client
-        self.weather_client = OpenWeatherMapClient(api_key='2988f66310cb9fb07835c49b29d9b685')
+        self.weather_client = OpenWeatherMapClient(api_key='2ae49291af8d453a917666db8d5ab3be')
 
     def name(self):
         return "action_get_current_weather"
@@ -119,6 +120,8 @@ class GetWeatherAction(Action):
     def run(self, dispatcher, tracker, domain):
         # Get the location from the user's message
         location = self.weather_client.get_user_location()
+        dispatcher.utter_message(location)
+        print(location)
         location = location['city'] + ", " + location['country']
  
         # Use the OpenWeatherMap API to get the current weather for the location
@@ -146,7 +149,7 @@ class GetWeatherAction(Action):
 class GetTommorowWeatherAction(Action):
     def __init__(self):
         # Set up the OpenWeatherMap API client
-        self.weather_client = pyowm.OWM('2988f66310cb9fb07835c49b29d9b685')
+        self.weather_client = OpenWeatherMapClient(api_key='2ae49291af8d453a917666db8d5ab3be')
         pass
     
     def name(self):

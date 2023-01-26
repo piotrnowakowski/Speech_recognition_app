@@ -9,3 +9,4 @@ rasa/.rasa
 rasa/models
 rasa/actions/__pycache__/
 voice_recognition/mic_functions/__pycache__/
+rasa/actions/__pycache__/
