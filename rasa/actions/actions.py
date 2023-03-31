@@ -8,7 +8,10 @@ import pyowm
 import socket
 from pyowm import OWM
 import requests
+import time
 from .mic_functions.text_to_sound import read_to_user
+from .additional_functions.get_user_location import get_user_location
+from .additional_functions.weather_client import OpenWeatherMapClient
 
 class ActionHelloWorld(Action):
     def name(self):
@@ -85,30 +88,6 @@ class OpenYouTube(Action):
 
 
 ##################################################################################
-class OpenWeatherMapClient:
-    def __init__(self, api_key):
-        self.owm_client = OWM(api_key)
-
-    def get_current_weather(self, location):
-        # Send a request to the OpenWeatherMap API to get the current weather for the given location
-        mgr = self.owm_client.weather_manager()
-        # list_of_locations = mgr.locations_for('Tokyo', country='JP', matching='exact')
-        # tokyo = list_of_locations[0]
-        weather = mgr.weather_at_place(str(location['country'])).get_weather()
-        # Return the weather data
-        print(weather.weather.detailed_status)
-        return weather
-
-    def get_user_location(self):
-        # Set up the API URL and request headers
-        # Get complete geolocation for the calling machine's IP address
-        url = "http://ipwho.is/"
-        geolocation = requests.get(url=url)
-        geolocation = geolocation.json()
-        return {'country': geolocation['country'], 'city': geolocation['city']}
-        # return geolocation
-
-
 class GetWeatherAction(Action):
     def __init__(self):
         # Set up the OpenWeatherMap API client
@@ -119,7 +98,7 @@ class GetWeatherAction(Action):
 
     def run(self, dispatcher, tracker, domain):
         # Get the location from the user's message
-        location = self.weather_client.get_user_location()
+        location = get_user_location()
         dispatcher.utter_message(location)
         print(location)
         location = location['city'] + ", " + location['country']
@@ -157,7 +136,7 @@ class GetTommorowWeatherAction(Action):
 
     def run(self, dispatcher, tracker, domain):
         # Get the location from the user's message
-        location = self.weather_client.get_user_location()
+        location = get_user_location()
         location = location['city'] + ", " + location['country']
 
         # Use the OpenWeatherMap API to get the current weather for the location
@@ -177,9 +156,120 @@ class GetTommorowWeatherAction(Action):
         forecast_tomorrow = forecast_tomorrow[0]
 
         # Include the forecast for the next day in the message
-        message += f" The forecast for tomorrow is {forecast_tomorrow.get_temperature('celsius')['max']}°C and {forecast_tomorrow.get_detailed_status()}."
+        message += f" The forecast for tomorrow is {forecast_tomorrow.get_temperature('celsius')['max']}celsius degrees and {forecast_tomorrow.get_detailed_status()}."
 
         dispatcher.utter_message(text=message)
         read_to_user(message)
+
+##################################################################################
+class ActionFetchNews(Action):
+    def name(self):
+        return "action_fetch_news"
+    
+    def run(self, dispatcher, tracker, domain):
+        
+        # Get the user's location and topic preferences from the tracker
+        location = get_user_location
+        topic = tracker.get_slot("topic")
+        
+        # Define the NewsAPI endpoint and parameters
+        try:
+            with open('newsapi_key.txt', "r") as f:
+                api_key = f.read().strip()
+        except:
+            read_to_user("There was an error with reading API key")
+        url = f"https://newsapi.org/v2/top-headlines?country={location['country']}&apiKey={api_key}"
+        
+        # Send a GET request to the NewsAPI endpoint
+        response = requests.get(url)
+        
+        # Handle the response based on the HTTP status code
+        if response.status_code == 200:
+            # Parse the response JSON to extract the news headlines
+            data = response.json()
+            headlines = [article["title"] for article in data["articles"]]
+            
+            # Format the headlines as a string and send them to the user
+            message = "Here are the latest news headlines:\n\n" + "\n".join(headlines)
+            dispatcher.utter_message(text=message)
+        else:
+            # If there was an error, send an error message to the user
+            dispatcher.utter_message(text="Sorry, I could not fetch the news at this time. Please try again later.")
+        
+        return []
+
+
+class ActionFetchNews(Action):
+    def name(self):
+        return "action_fetch_specifictopic_news"
+    
+    def run(self, dispatcher, tracker, domain):
+        
+        # Get the user's topic preference from the tracker
+        topic = tracker.get_slot("topic")
+        
+        # Define the NewsAPI endpoint and parameters
+        try:
+            with open('newsapi_key.txt', "r") as f:
+                api_key = f.read().strip()
+        except:
+            read_to_user("There was an error with reading API key")
+        url = f"https://newsapi.org/v2/top-headlines?category={topic}&apiKey={api_key}"
+        
+        # Send a GET request to the NewsAPI endpoint
+        response = requests.get(url)
+        
+        # Handle the response based on the HTTP status code
+        if response.status_code == 200:
+            # Parse the response JSON to extract the news headlines
+            data = response.json()
+            headlines = [article["title"] for article in data["articles"]]
+            
+            # Format the headlines as a string and send them to the user
+            message = "Here are the latest news headlines:\n\n" + "\n".join(headlines)
+            dispatcher.utter_message(text=message)
+        else:
+            # If there was an error, send an error message to the user
+            dispatcher.utter_message(text="Sorry, I could not fetch the news at this time. Please try again later.")
+        
+        return []
+
+import time
+
+class ActionPomodoro(Action):
+    def name(self):
+        return "action_pomodoro"
+    
+    def run(self, dispatcher, tracker, domain):
+        # Get the current cycle from the tracker
+        current_cycle = tracker.get_slot("current_cycle") or 1
+        
+        # Set the timer based on the current cycle
+
+        # Pomodoro cycle: 25 minutes
+        duration = 25 * 60
+        message = "Pomodoro started!"
+        read_to_user(message)
+        # Start the timer
+        start_time = time.time()
+        end_time = start_time + duration
+        while time.time() < end_time:
+            time.sleep(60)
+        read_to_user("Pomodor ended break starting")
+        if current_cycle % 4 == 1:
+            breaktime = 15*60
+            tracker.slots["current_cycle"] = 1
+        else:
+            breaktime = 5*60
+        start_time = time.time()
+        end_time = start_time + breaktime
+        # Update the tracker with the new cycle and end time
+        tracker.slots["current_cycle"] = current_cycle + 1
+        
+        # Send a message to the user and read it aloud
+        dispatcher.utter_message(text=message)
+        read_to_user("break ended. If You want to start pomodoro tell me")
+        
+        return []
 
 

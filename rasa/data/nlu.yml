@@ -157,3 +157,30 @@ nlu:
    - how the weather will be tommorow
    - how will be the weather
    
+- intent: get_news
+  examples: |
+    - What are the latest headlines?
+    - Can you give me the news?
+    - I want to know the latest news
+    - Show me the news headlines
+
+- intent: specify_news_preferences
+  examples: |
+    - I'm interested in [technology](topic) news
+    - What's the latest in [sports](topic)?
+    - Can you show me the news for [business](topic)?
+    - Give me the top [entertainment](topic) stories
+    - What's happening in [politics](topic) today?
+    - I want to know the latest [health](topic) news
+    - Can you give me the top [science](topic) stories?
+    - Show me the headlines for [finance](topic)
+    - What are the latest developments in [environment](topic) news?
+    - Can you give me the top [travel](topic) stories?
+
+- intent: start_pomodoro
+  examples: |
+    - start Pomodoro
+    - start a Pomodoro cycle
+    - let's do Pomodoro
+    - start timer for Pomodoro
+    - begin Pomodoro cycle

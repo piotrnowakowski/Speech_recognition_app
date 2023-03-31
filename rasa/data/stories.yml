@@ -73,3 +73,20 @@ stories:
   steps:
   - intent: current_weather
   - action: action_get_current_weather
+
+- story: get latest news
+  steps:
+  - intent: get_news
+  - action: action_fetch_news
+
+- story: get topic news
+  steps:
+  - intent: specify_news_preferences
+  - slot_was_set:
+    - topic: topic
+  - action: action_fetch_specifictopic_news
+
+- story: Pomodoro cycle
+  steps:
+  - intent: start_pomodoro
+  - action: action_pomodoro

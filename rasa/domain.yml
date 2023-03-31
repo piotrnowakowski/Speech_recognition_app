@@ -17,10 +17,18 @@ intents:
   - youtube_search
   - current_weather
   - tommorow_weather
+  - get_news
+  - specify_news_preferences
+  - start_pomodoro
 
 
 slots:
   youtube_keyword:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: custom
+  topic:
     type: text
     influence_conversation: false
     mappings:
@@ -56,6 +64,9 @@ actions:
   - action_open_YT
   - action_get_tommorow_weather
   - action_get_current_weather
+  - action_fetch_news
+  - action_fetch_specifictopic_news
+  - action_pomodoro
 
 session_config:
   session_expiration_time: 60
