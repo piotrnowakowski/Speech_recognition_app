@@ -12,6 +12,13 @@ import time
 from .mic_functions.text_to_sound import read_to_user
 from .additional_functions.get_user_location import get_user_location
 from .additional_functions.weather_client import OpenWeatherMapClient
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+OWM_API_KEY = os.getenv('OWM_API_KEY')
+NEWSAPI_API_KEY = os.getenv('NEWSAPI_API_KEY')
 
 class ActionHelloWorld(Action):
     def name(self):
@@ -91,7 +98,7 @@ class OpenYouTube(Action):
 class GetWeatherAction(Action):
     def __init__(self):
         # Set up the OpenWeatherMap API client
-        self.weather_client = OpenWeatherMapClient(api_key='2ae49291af8d453a917666db8d5ab3be')
+        self.weather_client = OpenWeatherMapClient(api_key=OWM_API_KEY)
 
     def name(self):
         return "action_get_current_weather"
@@ -128,7 +135,7 @@ class GetWeatherAction(Action):
 class GetTommorowWeatherAction(Action):
     def __init__(self):
         # Set up the OpenWeatherMap API client
-        self.weather_client = OpenWeatherMapClient(api_key='2ae49291af8d453a917666db8d5ab3be')
+        self.weather_client = OpenWeatherMapClient(api_key=OWM_API_KEY)
         pass
     
     def name(self):
@@ -173,12 +180,8 @@ class ActionFetchNews(Action):
         topic = tracker.get_slot("topic")
         
         # Define the NewsAPI endpoint and parameters
-        try:
-            with open('newsapi_key.txt', "r") as f:
-                api_key = f.read().strip()
-        except:
-            read_to_user("There was an error with reading API key")
-        url = f"https://newsapi.org/v2/top-headlines?country={location['country']}&apiKey={api_key}"
+
+        url = f"https://newsapi.org/v2/top-headlines?country={location['country']}&apiKey={NEWSAPI_API_KEY}"
         
         # Send a GET request to the NewsAPI endpoint
         response = requests.get(url)
@@ -214,7 +217,7 @@ class ActionFetchNews(Action):
                 api_key = f.read().strip()
         except:
             read_to_user("There was an error with reading API key")
-        url = f"https://newsapi.org/v2/top-headlines?category={topic}&apiKey={api_key}"
+        url = f"https://newsapi.org/v2/top-headlines?category={topic}&apiKey={NEWSAPI_API_KEY}"
         
         # Send a GET request to the NewsAPI endpoint
         response = requests.get(url)

@@ -11,3 +11,4 @@ rasa/actions/__pycache__/
 voice_recognition/mic_functions/__pycache__/
 rasa/actions/__pycache__/
 rasa/actions/newsapi_key.txt
+.env
