@@ -1,7 +1,7 @@
 from gtts import gTTS
 import os
 import time
-os.add_dll_directory(os.getcwd())
+#os.add_dll_directory(os.getcwd())
 import playsound
 
 def read_to_user(text, language = 'en'):

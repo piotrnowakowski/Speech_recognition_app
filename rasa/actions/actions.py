@@ -5,7 +5,6 @@ import pyautogui
 import webbrowser
 import time
 import pyowm
-import socket
 from pyowm import OWM
 import requests
 import time

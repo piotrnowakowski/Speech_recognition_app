@@ -1,7 +1,6 @@
 from gtts import gTTS
 import os
 import time
-os.add_dll_directory(os.getcwd())
 import playsound
 
 def read_to_user(text, language = 'en'):
@@ -21,7 +20,7 @@ def read_to_user(text, language = 'en'):
     myobj.save("temp.mp3")
 
     # Odtwarzanie konwertowanego pliku
-    playsound.playsound(r'C:\Users\pites2\Desktop\Inzynierka\voice_recognition\temp.mp3', True)
+    playsound.playsound(r'temp.mp3', True)
     os.remove("temp.mp3")
 
     
