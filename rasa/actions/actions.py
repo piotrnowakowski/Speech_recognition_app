@@ -84,7 +84,6 @@ class OpenYouTube(Action):
             user_input = user_input.split('youtube')[1]
         if  'YouTube' in user_input:
             user_input = user_input.split('YouTube')[1]
-        
         # Open YouTube in a new tab
         webbrowser.open_new_tab("https://www.youtube.com/results?search_query={}".format(user_input))
 
@@ -98,15 +97,12 @@ class GetWeatherAction(Action):
     def __init__(self):
         # Set up the OpenWeatherMap API client
         self.weather_client = OpenWeatherMapClient(api_key=OWM_API_KEY)
-
     def name(self):
         return "action_get_current_weather"
-
     def run(self, dispatcher, tracker, domain):
         # Get the location from the user's message
         location = get_user_location()
         dispatcher.utter_message(location)
-        print(location)
         location = location['city'] + ", " + location['country']
  
         # Use the OpenWeatherMap API to get the current weather for the location
@@ -120,7 +116,6 @@ class GetWeatherAction(Action):
             message += " It is currently raining."
         else:
             message += " It is not currently raining."
-
         # Check if it is cloudy and include that information in the message
         if 'clouds' in weather.weather:
             message += " The sky is cloudy."
